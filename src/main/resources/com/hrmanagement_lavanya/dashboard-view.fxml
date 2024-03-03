@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hrmanagement_lavanya.dashboardController">
+   <children>
+      <Label fx:id="dashboard" layoutX="225.0" layoutY="29.0" text="DASHBOARD">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Separator layoutX="200.0" layoutY="63.0" prefWidth="200.0" />
+      <Separator layoutX="200.0" layoutY="26.0" prefWidth="200.0" />
+      <Button layoutX="440.0" layoutY="226.0" mnemonicParsing="false" onAction="#employee" style="-fx-background-color: black;" text="Employee" textFill="#fcfbfb">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="526.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: #a60707;" text="LOGOUT" textFill="#faf9f9">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="141.0" layoutY="226.0" mnemonicParsing="false" onAction="#admin" style="-fx-background-color: black;" text="Admin" textFill="#fcfbfb">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="14.0" layoutY="13.0" mnemonicParsing="false" onAction="#back" style="-fx-background-color: black;" text="←BACK" textFill="#fcfbfb">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</Pane>
