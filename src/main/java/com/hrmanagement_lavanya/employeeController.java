@@ -1,10 +1,11 @@
 package com.hrmanagement_lavanya;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.sql.*;
 
@@ -17,6 +18,19 @@ public class employeeController {
     private final String username="root";
     private final String password="Oreo@2004";
     public TableView tableView;
+    public TableColumn tableId;
+    public TableColumn tableFName;
+    public TableColumn tableLName;
+    public TableColumn tableEmail;
+    public TableColumn tablePhone;
+    public TableColumn tableType;
+    public TableColumn TableSalary;
+    public TextField textFName;
+    public TextField textLName;
+    public TextField textEmail;
+    public TextField textPhone;
+    public TextField textId;
+    public PasswordField textPass;
 
     //    public void login() {
 //        
@@ -64,7 +78,18 @@ public class employeeController {
         message.setText(msg);
     }
 
-    public void back(ActionEvent actionEvent) {
+    public void back() throws  Exception {
+        Parent root= FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
+        Stage secondStage=new Stage();
+        secondStage.setTitle("Dashboard");
+
+        secondStage.setScene(new Scene(root));
+
+//                    close previous stage
+        Stage previousStage= (Stage) this.textEmail.getScene().getWindow();
+        previousStage.close();
+
+        secondStage.show();
     }
 
     public void view(ActionEvent actionEvent) {
