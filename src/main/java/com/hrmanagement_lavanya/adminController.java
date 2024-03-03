@@ -79,32 +79,56 @@ public class adminController implements Initializable {
         setMsg(" DETAILS FETCHED");
     }
 
-    public void delete(ActionEvent actionEvent) {
-    }
-
-    public void update(ActionEvent actionEvent) {
-    }
-
-    public void insert() {
+    public void delete() {
         setMsg("");
-        String fName=textFName.getText();
-        String lName=textLName.getText();
-        String email=textEmail.getText();
-        String pass=textPass.getText();
-        String phone=textPhone.getText();
-        String salary=textSalary.getText();
-        int id;
+        String id = (textId.getText());
+        if (id.equals("")) {
+            setMsg("ID IS REQUIRED");
+            return;
+        }
+        try {
+            Class.forName("com.cj.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+//            System.out.println(e.getMessage());
+        }
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+            Statement statement = connection.createStatement();
+            String query = String.format("DELETE FROM user WHERE id=%d", Integer.parseInt(id));
+            int rowsAffected = statement.executeUpdate(query);
+            if (rowsAffected > 0) {
+                setMsg("ADMIN DELETED");
+            } else {
+                setMsg("FAILED TO DELETE ADMIN");
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+    }
+
+    public void update() {
+        setMsg("");
+        String fName = textFName.getText();
+        String lName = textLName.getText();
+        String email = textEmail.getText();
+        String pass = textPass.getText();
+        String phone = textPhone.getText();
+        String salary = textSalary.getText();
+        String id = textId.getText();
         Double salaryDouble;
 
-        if(fName.equals("")||lName.equals("")||email.equals("")||pass.equals("")||phone.equals("")||salary.equals("")){
-            setMsg("FIRSTNAME LASTNAME EMAIL PASSWORD PHONE NO AND SALARY ARE REQUIRED");
+        if (fName.equals("") || lName.equals("") || email.equals("") || pass.equals("") || phone.equals("") || salary.equals("") || id.equals("")) {
+            setMsg("FIRSTNAME LASTNAME EMAIL PASSWORD PHONE-NO ID AND SALARY ARE REQUIRED");
         }
 
 //        check if salary is double
-        try{
-            salaryDouble=Double.parseDouble(salary);
-        }
-        catch (NumberFormatException e){
+        try {
+            salaryDouble = Double.parseDouble(salary);
+        } catch (NumberFormatException e) {
             System.out.println(e);
             setMsg("INVALID SALARY");
             return;
@@ -122,35 +146,94 @@ public class adminController implements Initializable {
             connection.setAutoCommit(false);
 
             Statement statement = connection.createStatement();
-            String query = String.format("INSERT INTO user (firstName,lastName,email,password,phoneNo,type) VALUES ('%s','%s','%s','%s','%s','admin')",fName,lName,email,pass,phone);
+            String query = String.format("UPDATE user set firstName='%s',lastName='%s',email='%s',password='%s',phoneNo='%s' WHERE id=%d", fName, lName, email, pass, phone, Integer.parseInt(id));
             int rowsAffected = statement.executeUpdate(query);
             if(rowsAffected>0){
+                String query2 = String.format("UPDATE salary set salary=%f WHERE employeeId=%d",salaryDouble, Integer.parseInt(id));
+                int rowsAffected2=statement.executeUpdate(query2);
+                if(rowsAffected2>0){
+                    connection.commit();
+                    fetchAll();
+                    setMsg("ADMIN UPDATED");
+                }
+                else {
+                    connection.rollback();
+                    setMsg("FAILED TO UPDATE ADMIN");
+                }
+
+            }
+
+        } catch(SQLException e){
+        System.out.println(e.getMessage());
+        setMsg("FAILED TO UPDATE ADMIN");
+    }
+
+}
+
+    public void insert() {
+        setMsg("");
+        String fName = textFName.getText();
+        String lName = textLName.getText();
+        String email = textEmail.getText();
+        String pass = textPass.getText();
+        String phone = textPhone.getText();
+        String salary = textSalary.getText();
+        int id;
+        Double salaryDouble;
+
+        if (fName.equals("") || lName.equals("") || email.equals("") || pass.equals("") || phone.equals("") || salary.equals("")) {
+            setMsg("FIRSTNAME LASTNAME EMAIL PASSWORD PHONE NO AND SALARY ARE REQUIRED");
+        }
+
+//        check if salary is double
+        try {
+            salaryDouble = Double.parseDouble(salary);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+            setMsg("INVALID SALARY");
+            return;
+        }
+
+        try {
+            Class.forName("com.cj.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+//            System.out.println(e.getMessage());
+        }
+        try {
+
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            connection.setAutoCommit(false);
+
+            Statement statement = connection.createStatement();
+            String query = String.format("INSERT INTO user (firstName,lastName,email,password,phoneNo,type) VALUES ('%s','%s','%s','%s','%s','admin')", fName, lName, email, pass, phone);
+            int rowsAffected = statement.executeUpdate(query);
+            if (rowsAffected > 0) {
 //                getting id of added admin
-                String query2=String.format("SELECT id FROM user WHERE email='%s'",email);
-                ResultSet resultSet=statement.executeQuery(query2);
-                if(resultSet.next()){
-                     id=resultSet.getInt("id");
-                    String query3=String.format("INSERT INTO salary (employeeId,salary) values (%d,%f)",id,salaryDouble);
-                    int rowsAffected2=statement.executeUpdate(query3);
-                    if(rowsAffected2>0){
+                String query2 = String.format("SELECT id FROM user WHERE email='%s'", email);
+                ResultSet resultSet = statement.executeQuery(query2);
+                if (resultSet.next()) {
+
+                    id = resultSet.getInt("id");
+
+                    String query3 = String.format("INSERT INTO salary (employeeId,salary) values (%d,%f)", id, salaryDouble);
+                    int rowsAffected2 = statement.executeUpdate(query3);
+                    if (rowsAffected2 > 0) {
                         setMsg("ADMIN ADDED");
+                        fetchAll();
                         connection.commit();
-                    }
-                    else{
+                    } else {
                         connection.rollback();
                     }
 
-                }
-                else{
+                } else {
                     connection.rollback();
                     setMsg("FAILED TO ADD ADMIN");
                     return;
                 }
-            }
-            else{
+            } else {
                 setMsg("FAILED TO ADD ADMIN");
             }
-
 
 
         } catch (SQLException e) {
@@ -160,6 +243,7 @@ public class adminController implements Initializable {
     }
 
     public void fetchAll() {
+        tableView.getItems().clear();
         try {
             Class.forName("com.cj.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {

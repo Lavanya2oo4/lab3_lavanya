@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hrmanagement_lavanya.employeeController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="895.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hrmanagement_lavanya.employeeController">
     <children>
-        <Label alignment="CENTER" layoutX="783.0" layoutY="11.0" prefHeight="31.0" prefWidth="75.0" style="-fx-border-style: solid;" text="EMPLOYEE" />
+        <Label alignment="CENTER" layoutX="810.0" layoutY="11.0" prefHeight="31.0" prefWidth="75.0" style="-fx-border-style: solid;" text="ADMIN" />
         <Button layoutX="20.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: #a40505;" text="←BACK" textFill="#f7f3f3">
             <font>
                 <Font size="11.0" />
@@ -34,7 +34,7 @@
             </columns>
         </TableView>
         <Separator layoutX="579.0" layoutY="9.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="6.0" />
-        <Button layoutX="793.0" layoutY="347.0" mnemonicParsing="false" onAction="#view" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: black;" text="VIEW" textFill="#f7f3f3">
+        <Button layoutX="821.0" layoutY="357.0" mnemonicParsing="false" onAction="#view" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: black;" text="VIEW" textFill="#f7f3f3">
             <font>
                 <Font size="11.0" />
             </font>
@@ -42,7 +42,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button layoutX="793.0" layoutY="316.0" mnemonicParsing="false" onAction="#delete" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: black;" text="DELETE" textFill="#f7f3f3">
+        <Button layoutX="746.0" layoutY="357.0" mnemonicParsing="false" onAction="#delete" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: black;" text="DELETE" textFill="#f7f3f3">
             <font>
                 <Font size="11.0" />
             </font>
@@ -50,7 +50,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button layoutX="793.0" layoutY="286.0" mnemonicParsing="false" onAction="#update" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: black;" text="UPDATE" textFill="#f7f3f3">
+        <Button layoutX="664.0" layoutY="357.0" mnemonicParsing="false" onAction="#update" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: black;" text="UPDATE" textFill="#f7f3f3">
             <font>
                 <Font size="11.0" />
             </font>
@@ -58,7 +58,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button layoutX="793.0" layoutY="256.0" mnemonicParsing="false" onAction="#insert" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: black;" text="INSERT" textFill="#f7f3f3">
+        <Button layoutX="586.0" layoutY="359.0" mnemonicParsing="false" onAction="#insert" prefHeight="16.0" prefWidth="65.0" style="-fx-background-color: black;" text="INSERT" textFill="#f7f3f3">
             <font>
                 <Font size="11.0" />
             </font>
@@ -71,7 +71,7 @@
                 <Font name="System Italic" size="12.0" />
             </font>
         </Label>
-        <Label layoutX="642.0" layoutY="222.0" text="ID:" />
+        <Label layoutX="644.0" layoutY="250.0" text="ID:" />
         <Label layoutX="586.0" layoutY="76.0" text="FIRSTNAME:" />
         <Label layoutX="588.0" layoutY="103.0" text="LASTNAME:" />
         <Label layoutX="618.0" layoutY="131.0" text="EMAIL:" />
@@ -81,7 +81,9 @@
         <TextField fx:id="textLName" layoutX="672.0" layoutY="99.0" promptText="ENTER LAST NAME" />
         <TextField fx:id="textEmail" layoutX="672.0" layoutY="127.0" promptText="ENTER EMAIL" />
         <TextField fx:id="textPhone" layoutX="672.0" layoutY="160.0" promptText="ENTER PHONE NUMBER" />
-        <TextField fx:id="textId" layoutX="672.0" layoutY="218.0" promptText="ENTER EMPLOYEE ID" />
+        <TextField fx:id="textId" layoutX="672.0" layoutY="246.0" promptText="ENTER EMPLOYEE ID" />
         <PasswordField fx:id="textPass" layoutX="672.0" layoutY="188.0" promptText="********" />
+        <Label layoutX="607.0" layoutY="220.0" text="SALARY:" />
+        <TextField fx:id="textSalary" layoutX="672.0" layoutY="216.0" promptText="0.00" />
     </children>
 </Pane>
