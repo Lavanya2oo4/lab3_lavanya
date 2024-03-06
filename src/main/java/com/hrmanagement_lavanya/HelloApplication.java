@@ -19,5 +19,12 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+        System.out.println( calcSalary(1000));
     }
+    public static  double calcSalary(double sal){
+        double netSal=12*sal;
+        return netSal;
+    }
+
 }
+
