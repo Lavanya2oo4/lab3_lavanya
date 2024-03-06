@@ -1,5 +1,6 @@
 package com.hrmanagement_lavanya;
 
+
 public class Model {
     public int id;
     public String firstName;
@@ -8,9 +9,10 @@ public class Model {
     public String phoneNo;
     public String type;
     public Double salary;
+    public String datePaid;
 
 
-    public Model(int id, String firstName, String lastName, String email, String phoneNo, String type, Double salary) {
+    public Model(int id, String firstName, String lastName, String email, String phoneNo, String type, Double salary, String datePaid) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -18,6 +20,7 @@ public class Model {
         this.phoneNo = phoneNo;
         this.type = type;
         this.salary = salary;
+        this.datePaid = datePaid;
     }
 
     public int getId() {
@@ -76,5 +79,11 @@ public class Model {
         this.salary = salary;
     }
 
+    public String getDate() {
+        return datePaid;
+    }
 
+    public void setDate(String date) {
+        this.datePaid = date;
+    }
 }

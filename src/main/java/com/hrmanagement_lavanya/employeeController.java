@@ -3,6 +3,7 @@ package com.hrmanagement_lavanya;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -15,18 +16,29 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+
 public class employeeController implements Initializable {
 
     public TableView<Model> tableView;
 
+    @FXML
     public TableColumn<Model, Integer> tableId;
+    @FXML
     public TableColumn<Model, String> tableFName;
+    @FXML
     public TableColumn<Model, String> tableLName;
+    @FXML
     public TableColumn<Model, String> tableEmail;
+    @FXML
     public TableColumn<Model, String> tablePhone;
+    @FXML
     public TableColumn<Model, String> tableType;
+    @FXML
     public TableColumn<Model, Double> TableSalary;
     public TextField textSalary;
+    @FXML
+    public TableColumn<Model, String> tableDate;
+    public DatePicker date;
 
     ObservableList<Model> list = FXCollections.observableArrayList();
 
@@ -39,6 +51,7 @@ public class employeeController implements Initializable {
         tablePhone.setCellValueFactory(new PropertyValueFactory<Model, String>("phoneNo"));
         tableType.setCellValueFactory(new PropertyValueFactory<Model, String>("type"));
         TableSalary.setCellValueFactory(new PropertyValueFactory<Model, Double>("salary"));
+        tableDate.setCellValueFactory(new PropertyValueFactory<Model, String >("datePaid"));
         tableView.setItems(list);
     }
 
@@ -99,6 +112,7 @@ public class employeeController implements Initializable {
             int rowsAffected = statement.executeUpdate(query);
             if (rowsAffected > 0) {
                 setMsg("EMPLOYEE DELETED");
+                fetchAll();
             } else {
                 setMsg("FAILED TO DELETE EMPLOYEE");
             }
@@ -120,10 +134,11 @@ public class employeeController implements Initializable {
         String phone = textPhone.getText();
         String salary = textSalary.getText();
         String id = textId.getText();
+        String date_=date.getValue().toString();
         Double salaryDouble;
 
-        if (fName.equals("") || lName.equals("") || email.equals("") || pass.equals("") || phone.equals("") || salary.equals("") || id.equals("")) {
-            setMsg("FIRSTNAME LASTNAME EMAIL PASSWORD PHONE-NO ID AND SALARY ARE REQUIRED");
+        if (fName.equals("") || date_.equals("")|| lName.equals("") || email.equals("") || pass.equals("") || phone.equals("") || salary.equals("") || id.equals("")) {
+            setMsg("FIRSTNAME LASTNAME EMAIL DATE PASSWORD PHONE-NO ID AND SALARY ARE REQUIRED");
         }
 
 //        check if salary is double
@@ -150,7 +165,7 @@ public class employeeController implements Initializable {
             String query = String.format("UPDATE user set firstName='%s',lastName='%s',email='%s',password='%s',phoneNo='%s' WHERE id=%d", fName, lName, email, pass, phone, Integer.parseInt(id));
             int rowsAffected = statement.executeUpdate(query);
             if(rowsAffected>0){
-                String query2 = String.format("UPDATE salary set salary=%f WHERE employeeId=%d",salaryDouble, Integer.parseInt(id));
+                String query2 = String.format("UPDATE salary set salary=%f,datePaid='%s' WHERE employeeId=%d",salaryDouble,date_, Integer.parseInt(id));
                 int rowsAffected2=statement.executeUpdate(query2);
                 if(rowsAffected2>0){
                     connection.commit();
@@ -179,11 +194,13 @@ public class employeeController implements Initializable {
         String pass = textPass.getText();
         String phone = textPhone.getText();
         String salary = textSalary.getText();
+        String date_=date.getValue().toString();
+
         int id;
         Double salaryDouble;
 
-        if (fName.equals("") || lName.equals("") || email.equals("") || pass.equals("") || phone.equals("") || salary.equals("")) {
-            setMsg("FIRSTNAME LASTNAME EMAIL PASSWORD PHONE NO AND SALARY ARE REQUIRED");
+        if (fName.equals("") || lName.equals("") ||date_.equals("") || email.equals("") || pass.equals("") || phone.equals("") || salary.equals("")) {
+            setMsg("FIRSTNAME LASTNAME EMAIL DATE PASSWORD PHONE NO AND SALARY ARE REQUIRED");
         }
 
 //        check if salary is double
@@ -217,7 +234,7 @@ public class employeeController implements Initializable {
 
                     id = resultSet.getInt("id");
 
-                    String query3 = String.format("INSERT INTO salary (employeeId,salary) values (%d,%f)", id, salaryDouble);
+                    String query3 = String.format("INSERT INTO salary (employeeId,salary,datePaid) values (%d,%f,'%s')", id, salaryDouble,date_);
                     int rowsAffected2 = statement.executeUpdate(query3);
                     if (rowsAffected2 > 0) {
                         setMsg("EMPLOYEE ADDED");
@@ -253,7 +270,7 @@ public class employeeController implements Initializable {
         try {
             Connection connection = DriverManager.getConnection(url, username, password);
             Statement statement = connection.createStatement();
-            String query = String.format("SELECT user.*,salary.salary FROM user,salary WHERE user.id=salary.employeeId AND type='employee'");
+            String query = String.format("SELECT user.*,salary.salary,salary.datePaid FROM user,salary WHERE user.id=salary.employeeId AND user.type='employee'");
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -263,8 +280,9 @@ public class employeeController implements Initializable {
                 String phone = resultSet.getString("phoneNo");
                 String type = resultSet.getString("type");
                 Double salary = resultSet.getDouble("salary");
+                String dateF=resultSet.getString("datePaid");
 
-                tableView.getItems().add(new Model(id, fName, lName, email, phone, type, salary));
+                tableView.getItems().add(new Model(id, fName, lName, email, phone, type, salary,dateF));
             }
 
 
