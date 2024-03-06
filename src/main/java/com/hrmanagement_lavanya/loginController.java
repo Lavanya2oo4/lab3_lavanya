@@ -49,27 +49,52 @@ public class loginController {
                 String originalPass=resultSet.getString("password");
                 String Uname=resultSet.getString("firstName").concat(" ").concat(resultSet.getString("lastName"));
                 if(originalPass.equals(pass)){
-                    Parent root=FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
-                    Stage secondStage=new Stage();
-                    secondStage.setTitle("Dashboard");
+//                    Parent root=FXMLLoader.load(getClass().getResource("dashboard-view.fxml"));
+//                    Stage secondStage=new Stage();
+//                    secondStage.setTitle("Dashboard");
+//
+//                    secondStage.setScene(new Scene(root));
+//
+////                    close previous stage
+//                    Stage previousStage= (Stage) emailField.getScene().getWindow();
+//                    previousStage.close();
+//
+////                    send data
+//                    try {
+//                        dashboardController dc = new dashboardController();
+//                        dc.setUSER(Uname);
+//                    }
+//                    catch (Exception e){
+//                        System.out.println(e.getMessage());
+//                    }
+//
+//                    secondStage.show();
 
-                    secondStage.setScene(new Scene(root));
-
-//                    close previous stage
-                    Stage previousStage= (Stage) emailField.getScene().getWindow();
-                    previousStage.close();
-
-//                    send data
                     try {
-                        dashboardController dc = new dashboardController();
-                        dc.setUSER(Uname);
-                    }
-                    catch (Exception e){
-                        System.out.println(e.getMessage());
-                    }
+                        // Load the FXML file for the second scene
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("dashboard-view.fxml"));
+                        Parent secondScene = loader.load();
 
-                    secondStage.show();
+                        // Access the controller of the second scene
+                        dashboardController dashController = loader.getController();
 
+                        // Set the data in the controller of the second scene
+                        dashController.setMessage(Uname);
+
+                        // Create a new stage for the second scene
+                        Stage secondStage = new Stage();
+                        secondStage.setTitle("DashBoard");
+                        secondStage.setScene(new Scene(secondScene));
+
+                        Stage firstSceneStage = (Stage) emailField.getScene().getWindow();
+                        firstSceneStage.close();
+
+                        // Show the second stage
+                        secondStage.show();
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
 
                 }

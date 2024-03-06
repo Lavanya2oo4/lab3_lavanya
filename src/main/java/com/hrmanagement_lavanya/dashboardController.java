@@ -15,7 +15,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class dashboardController implements Initializable {
+public class dashboardController  {
 
 
 
@@ -25,24 +25,17 @@ public class dashboardController implements Initializable {
 
     public Label dashboard;
 
-    public static String USER = "";
 
     @FXML
     public Label message  ;
 
 
 
-    public void setUSER(String user) {
-        this.USER = user;
-        System.out.println(USER);
-        System.out.println("I am set");
-    }
 
 
 
-    public void setMessage(String msg){
-        message.setText("WELCOME "+USER+" "+java.time.LocalDate.now());
-        System.out.println(USER);
+    public void setMessage(String user){
+        message.setText("WELCOME "+user+" "+java.time.LocalDate.now());
     }
 
     public void employee() throws Exception {
@@ -96,8 +89,8 @@ public class dashboardController implements Initializable {
     }
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        setMessage(USER);
-    }
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//        setMessage(USER);
+//    }
 }
